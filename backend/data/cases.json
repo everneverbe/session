@@ -1,30 +1,14 @@
 [
   {
-    "id": "1",
-    "meta": {
-      "title": "Brand Crisis After Misinterpreted Campaign",
-      "industry": "Consumer Goods",
-      "region": "Southeast Asia",
-      "coreTension": "Creative freedom vs cultural sensitivity"
-    }
+    "id": 1,
+    "title": "Brand Diserang Isu Negatif",
+    "summary": "Sebuah brand besar diserang isu viral di Twitter terkait dugaan pelanggaran etika.",
+    "difficulty": "Medium"
   },
   {
-    "id": "2",
-    "meta": {
-      "title": "Internal Layoff Communication Leak",
-      "industry": "Technology",
-      "region": "Global",
-      "coreTension": "Transparency vs operational confidentiality"
-    }
-  },
-  {
-    "id": "3",
-    "meta": {
-      "title": "Regulatory Statement Misalignment",
-      "industry": "Energy",
-      "region": "Asia-Pacific",
-      "coreTension": "Public positioning vs regulatory relationships"
-    }
+    "id": 2,
+    "title": "CEO Salah Ucap di Media",
+    "summary": "Pernyataan CEO memicu backlash publik dan media nasional.",
+    "difficulty": "Hard"
   }
 ]
-

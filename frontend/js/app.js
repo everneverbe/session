@@ -1,37 +1,36 @@
-const caseList = document.getElementById("caseList");
-
-const API_BASE = "http://localhost:3001";
+const API_URL = "https://session-production-fd45.up.railway.app";
 
 async function loadCases() {
+  const container = document.getElementById("caseList");
+
   try {
-    const res = await fetch(`${API_BASE}/api/cases`);
+    const res = await fetch(`${API_URL}/api/cases`);
 
     if (!res.ok) {
-      throw new Error("Fetch failed");
+      throw new Error("API error");
     }
 
-    const data = await res.json();
+    const cases = await res.json();
 
-    if (!data.length) {
-      caseList.innerHTML = "<p>No cases available.</p>";
-      return;
-    }
+    container.innerHTML = "";
 
-    caseList.innerHTML = data
-      .map(
-        (c) => `
-        <div class="case-card">
-          <h3>${c.meta.title}</h3>
-          <p><strong>Industry:</strong> ${c.meta.industry}</p>
-          <p><strong>Region:</strong> ${c.meta.region}</p>
-          <p><strong>Core Tension:</strong> ${c.meta.coreTension}</p>
-        </div>
-      `
-      )
-      .join("");
+    cases.forEach(c => {
+      const card = document.createElement("div");
+      card.className = "case-card";
+
+      card.innerHTML = `
+        <h3>${c.meta.title}</h3>
+        <p><strong>Industry:</strong> ${c.meta.industry}</p>
+        <p><strong>Region:</strong> ${c.meta.region}</p>
+        <p><strong>Core Tension:</strong> ${c.meta.coreTension}</p>
+      `;
+
+      container.appendChild(card);
+    });
+
   } catch (err) {
     console.error(err);
-    caseList.innerHTML = "❌ Failed to load cases";
+    container.innerHTML = `<p class="error">❌ Failed to load cases</p>`;
   }
 }
 
