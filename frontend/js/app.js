@@ -1,37 +1,23 @@
-const API_URL = "https://session-production-fd45.up.railway.app";
+const API_URL = "http://localhost:3001/api/cases";
 
-async function loadCases() {
-  const container = document.getElementById("caseList");
-
-  try {
-    const res = await fetch(`${API_URL}/api/cases`);
-
-    if (!res.ok) {
-      throw new Error("API error");
-    }
-
-    const cases = await res.json();
-
+fetch(API_URL)
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("cases");
     container.innerHTML = "";
 
-    cases.forEach(c => {
-      const card = document.createElement("div");
-      card.className = "case-card";
-
-      card.innerHTML = `
+    data.forEach(c => {
+      const div = document.createElement("div");
+      div.innerHTML = `
         <h3>${c.meta.title}</h3>
-        <p><strong>Industry:</strong> ${c.meta.industry}</p>
-        <p><strong>Region:</strong> ${c.meta.region}</p>
-        <p><strong>Core Tension:</strong> ${c.meta.coreTension}</p>
+        <p><b>Industry:</b> ${c.meta.industry}</p>
+        <p><b>Region:</b> ${c.meta.region}</p>
+        <p><b>Core Tension:</b> ${c.meta.coreTension}</p>
+        <hr/>
       `;
-
-      container.appendChild(card);
+      container.appendChild(div);
     });
-
-  } catch (err) {
-    console.error(err);
-    container.innerHTML = `<p class="error">❌ Failed to load cases</p>`;
-  }
-}
-
-loadCases();
+  })
+  .catch(() => {
+    document.getElementById("cases").innerText = "Failed to load cases";
+  });
