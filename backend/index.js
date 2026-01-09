@@ -1,31 +1,33 @@
 import express from "express";
+import cors from "cors";
 import fs from "fs";
 import path from "path";
-import cors from "cors";
 import { fileURLToPath } from "url";
 
 const app = express();
 app.use(cors());
 
+const PORT = process.env.PORT || 3001;
+const HOST = "0.0.0.0";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// LOAD DATA
-const dataPath = path.join(__dirname, "data", "cases.json");
-const cases = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+// ===== LOAD DATA =====
+const casesPath = path.join(__dirname, "data", "cases.json");
+const cases = JSON.parse(fs.readFileSync(casesPath, "utf-8"));
 
-// ROOT CHECK
+// ===== HEALTH CHECK (WAJIB) =====
 app.get("/", (req, res) => {
-  res.send("Session backend is running");
+  res.status(200).send("Session backend is running");
 });
 
-// API
+// ===== API =====
 app.get("/api/cases", (req, res) => {
   res.json(cases);
 });
 
-// IMPORTANT: RAILWAY PORT
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Backend running on port ${PORT}`);
+// ===== START SERVER =====
+app.listen(PORT, HOST, () => {
+  console.log(`Backend running on http://${HOST}:${PORT}`);
 });
